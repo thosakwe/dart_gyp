@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Parser Tests" type="DartTestRunConfigurationType" factoryName="Dart Test" folderName="Codec Tests" singleton="true">
+    <option name="filePath" value="$PROJECT_DIR$/test/codec/parser.dart" />
+    <method />
+  </configuration>
+</component>
