@@ -8,9 +8,6 @@ class Token {
   String text;
 
   Token(this.type, this.text);
-
-  @override
-  String toString() => "'$text' -> $type";
 }
 
 class Lexer {
@@ -37,6 +34,13 @@ class Lexer {
         var str = new StringBuffer(it.current);
 
         while (it.moveNext() && it.current != Chars.SINGLE_QUOTE)
+          str.write(it.current);
+
+        tokens.add(new Token(TokenType.STRING, str.toString()));
+      } else if (it.current == Chars.DOUBLE_QUOTE && it.moveNext()) {
+        var str = new StringBuffer(it.current);
+
+        while (it.moveNext() && it.current != Chars.DOUBLE_QUOTE)
           str.write(it.current);
 
         tokens.add(new Token(TokenType.STRING, str.toString()));
