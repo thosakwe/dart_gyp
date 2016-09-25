@@ -14,8 +14,10 @@ class Parser {
 
     if (body == null) {
       if (_it.current != null)
-        throw new GypSyntaxError("Expected an object, 'found ${_it.current.text}' instead.");
-      else throw new GypSyntaxError('Expected an object, found nothing.');
+        throw new GypSyntaxError(
+            "Expected an object, 'found ${_it.current.text}' instead.");
+      else
+        throw new GypSyntaxError('Expected an object, found nothing.');
     }
 
     return new CompilationUnitContext(body);
@@ -70,9 +72,11 @@ class Parser {
           (_it.current.type == TokenType.COMMA ||
               _it.current.type == TokenType.SQUARE_R)) {
         if (_it.moveNext()) item = expression();
+      } else if ((item = expression()) != null) {
+        continue;
       } else if (_it.current != null)
         throw new GypSyntaxError(
-            "Expect ',' or ']', found '${_it.current.text}' instead.");
+            "Expected ',' or ']', found '${_it.current.text}' instead.");
       else
         break;
     }

@@ -10,17 +10,22 @@ class GypToMap extends Converter<String, Map> {
     var tokens = _lexer.scan(input);
     var parser = new Parser(tokens);
     var compilationUnit = parser.compilationUnit();
-    var result = {};
-
-    for (var pair in compilationUnit.body.pairs) {
-      result[pair.key.STRING.text] = visitExpression(pair.value);
-    }
-
-    return result;
+    return visitExpression(compilationUnit.body);
   }
 
   visitExpression(ExpressionContext ctx) {
     if (ctx is StringContext)
       return ctx.STRING.text;
+    else if (ctx is ArrayContext)
+      return ctx.items.map(visitExpression).toList();
+    else if (ctx is ObjectContext) {
+      var result = {};
+
+      for (var pair in ctx.pairs) {
+        result[pair.key.STRING.text] = visitExpression(pair.value);
+      }
+
+      return result;
+    }
   }
 }
