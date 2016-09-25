@@ -13,6 +13,8 @@ main() {
     print(config);
     expect(config.keys, hasLength(1));
     expect(config['foo'], equals('bar'));
+
+    print(GYP.encode(config));
   });
 
   test('with array value', () {
@@ -82,5 +84,6 @@ main() {
     ''');
 
     print(config);
+    print(GYP.encode(config));
   });
 }
